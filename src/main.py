@@ -86,9 +86,6 @@ class Rebalancer():
             difference = needed_value - stocks[stock][0]
             self.textwidget_insert(self.text_output, f"Put {difference} in {stock}")
     
-    def get_float_from_string(self, string):
-        return float("".join([char for char in string if char.isdigit() or char == "."]))
-    
     def textwidget_insert(self, textwidget, text):
         textwidget.configure(state=tk.NORMAL)
         textwidget.insert(tk.END, f"{text}\n")
@@ -98,6 +95,9 @@ class Rebalancer():
         textwidget.configure(state=tk.NORMAL)
         textwidget.delete("1.0", tk.END)
         textwidget.configure(state=tk.DISABLED)
+    
+    def get_float_from_string(self, string):
+        return float("".join([char for char in string if char.isdigit() or char == "."]))
 
 
 Rebalancer()

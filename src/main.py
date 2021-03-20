@@ -21,7 +21,7 @@ class Rebalancer():
         self.text_hint.configure(state=tk.DISABLED)
         self.text_hint.grid()
 
-        self.text_input = tk.Text(self.frame, height = 3)
+        self.text_input = tk.Text(self.frame, height=3)
         self.text_input.grid()
 
         self.text_error = tk.Text(self.frame, height=1, state=tk.DISABLED)

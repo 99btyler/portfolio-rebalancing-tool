@@ -43,6 +43,7 @@ class Rebalancer():
     def calculate(self):
 
         self.textwidget_clear(self.text_error)
+        self.textwidget_clear(self.text_output)
 
         # Get all input values and verify them
         stocks = {}

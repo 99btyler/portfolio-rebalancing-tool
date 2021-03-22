@@ -53,24 +53,23 @@ class Rebalancer():
         for i in range(0, len(text_input_lines) - 1):
             text_input_line = text_input_lines[i]
             things = text_input_line.split(";")
-            if len(things) == 3:
-                stock = things[0]
-                try:
-                    stock_value = self.__get_float_from_string(things[1])
-                    total_stock_value += stock_value
-                except ValueError as e:
-                    self.__textwidget_insert(self.text_error, things[1])
-                    return
-                try:
-                    stock_desired_percent = self.__get_float_from_string(things[2])
-                    total_stock_desired_percent += stock_desired_percent
-                except ValueError as e:
-                    self.__textwidget_insert(self.text_error, things[2])
-                    return
-                stocks[stock] = [stock_value, stock_desired_percent]
-            else:
+            if len(things) != 3:
                 self.__textwidget_insert(self.text_error, f"'{text_input_line}'")
                 return
+            stock = things[0]
+            try:
+                stock_value = self.__get_float_from_string(things[1])
+                total_stock_value += stock_value
+            except ValueError as e:
+                self.__textwidget_insert(self.text_error, things[1])
+                return
+            try:
+                stock_desired_percent = self.__get_float_from_string(things[2])
+                total_stock_desired_percent += stock_desired_percent
+            except ValueError as e:
+                self.__textwidget_insert(self.text_error, things[2])
+                return
+            stocks[stock] = [stock_value, stock_desired_percent]
         if total_stock_desired_percent != 100.0:
             self.__textwidget_insert(self.text_error, f"total_stock_desired_percent={total_stock_desired_percent} (should be 100.0)")
             return

@@ -5,7 +5,7 @@ from tkinter import ttk
 class Rebalancer():
 
     def __init__(self):
-
+        
         # Tkinter root
         self.root = tk.Tk()
         self.root.title("portfolio-rebalancing-tool")
@@ -41,56 +41,65 @@ class Rebalancer():
         self.root.mainloop()
     
     def __calculate(self):
-
+        
         self.__textwidget_clear(self.text_error)
         self.__textwidget_clear(self.text_output)
 
-        # Get all input values and verify them
         stocks = {}
         total_stock_value = 0.0
         total_stock_desired_percent = 0.0
-        text_input_lines = self.text_input.get("1.0", tk.END).split("\n")
-        for i in range(0, len(text_input_lines) - 1):
-            text_input_line = text_input_lines[i]
-            things = text_input_line.split(";")
+
+        text_input_lines = self.text_input.get("1.0", f"{tk.END}-1c").split("\n")
+
+        for line in text_input_lines:
+
+            things = line.split(";")
+
             if len(things) != 3:
-                self.__textwidget_insert(self.text_error, f"'{text_input_line}'")
+                self.__textwidget_insert(self.text_error, f"'{line}'")
                 return
+            
+            # stock
             stock = things[0]
+            # stock_value
             try:
                 stock_value = self.__get_float_from_string(things[1])
                 total_stock_value += stock_value
             except ValueError as e:
                 self.__textwidget_insert(self.text_error, things[1])
                 return
+            # stock_desired_percent
             try:
                 stock_desired_percent = self.__get_float_from_string(things[2])
                 total_stock_desired_percent += stock_desired_percent
             except ValueError as e:
                 self.__textwidget_insert(self.text_error, things[2])
                 return
+            
             stocks[stock] = [stock_value, stock_desired_percent]
+            
         if total_stock_desired_percent != 100.0:
             self.__textwidget_insert(self.text_error, f"total_stock_desired_percent={total_stock_desired_percent} (should be 100.0)")
             return
+
         try:
             amount_to_invest = self.__get_float_from_string(self.stringvar_amounttoinvest.get())
         except ValueError as e:
             self.__textwidget_insert(self.text_error, "invalid amount_to_invest")
             return
-        
-        # Use the input values to calculate and display the investment split
+            
         new_total_stock_value = total_stock_value + amount_to_invest
+
         for stock in stocks:
-            needed_value = (stocks[stock][1] / 100.0) * new_total_stock_value
+            needed_value = (stocks[stock][1] / 100.0) * new_total_stock_value # stock_desired_percent * new_total_stock_value
             difference = needed_value - stocks[stock][0]
             self.__textwidget_insert(self.text_output, f"Put {round(difference, 2)} in {stock}")
-    
+
     def __textwidget_insert(self, textwidget, text):
         textwidget.configure(state=tk.NORMAL)
         textwidget.insert(tk.END, f"{text}\n")
         textwidget.configure(state=tk.DISABLED)
-    
+
     def __textwidget_clear(self, textwidget):
         textwidget.configure(state=tk.NORMAL)
         textwidget.delete("1.0", tk.END)

@@ -92,7 +92,7 @@ class Rebalancer():
 
         for stock in stocks:
             needed_value = (stocks[stock][1] / 100.0) * new_total_stock_value # stock_desired_percent * new_total_stock_value
-            difference = needed_value - stocks[stock][0]
+            difference = needed_value - stocks[stock][0] # needed_value - stock_value
             self.__textwidget_insert(self.text_output, f"Put {round(difference, 2)} in {stock}")
 
     def __textwidget_insert(self, textwidget, text):

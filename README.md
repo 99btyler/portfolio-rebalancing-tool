@@ -1,5 +1,5 @@
 # portfolio-rebalancing-tool
-![portfolio-rebalancing-tool gif](https://i.imgur.com/vu6BMFt.gif)
+![portfolio-rebalancing-tool gif](https://i.imgur.com/4oz4cY2.gif)
 
 # Getting Started
 Get this project set up locally

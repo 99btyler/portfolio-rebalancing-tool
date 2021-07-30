@@ -27,9 +27,9 @@ class Rebalancer():
         self.text_error = tk.Text(self.frame, height=1, state=tk.DISABLED)
         self.text_error.grid()
 
-        self.stringvar_amounttoinvest = tk.StringVar(value="amount to invest")
-        self.entry_amounttoinvest = ttk.Entry(self.frame, textvariable=self.stringvar_amounttoinvest)
-        self.entry_amounttoinvest.grid()
+        self.stringvar_amount_to_invest = tk.StringVar(value="amount to invest")
+        self.entry_amount_to_invest = ttk.Entry(self.frame, textvariable=self.stringvar_amount_to_invest)
+        self.entry_amount_to_invest.grid()
 
         self.button_calculate = ttk.Button(self.frame, text="Calculate", command=self.__calculate)
         self.button_calculate.grid()
@@ -49,9 +49,7 @@ class Rebalancer():
         total_stock_value = 0.0
         total_stock_desired_percent = 0.0
 
-        text_input_lines = self.text_input.get("1.0", f"{tk.END}-1c").split("\n")
-
-        for line in text_input_lines:
+        for line in self.text_input.get("1.0", f"{tk.END}-1c").split("\n"):
 
             things = line.split(";")
 
@@ -83,7 +81,7 @@ class Rebalancer():
             return
 
         try:
-            amount_to_invest = self.__get_float_from_string(self.stringvar_amounttoinvest.get())
+            amount_to_invest = self.__get_float_from_string(self.stringvar_amount_to_invest.get())
         except ValueError as e:
             self.__textwidget_insert(self.text_error, "invalid amount_to_invest")
             return

@@ -1,39 +1,29 @@
 import sys
 
 
+def get_float(question):
+	answer = 0.0
+	while True:
+		try:
+			answer = float(input(question))
+			break
+		except ValueError:
+			continue # asks again
+	return answer
+
+
 class Stock():
 
 	def __init__(self):
-
 		self.name = input("Stock name: ")
-
-		self.amount = 0.0
-		while True:
-			try:
-				self.amount = float(input("Stock amount: "))
-				break
-			except ValueError:
-				continue # asks again
-
-		self.desired_weight = 0.0
-		while True:
-			try:
-				self.desired_weight = float(input("Stock desired_weight: "))
-				break
-			except ValueError:
-				continue # asks again
+		self.amount = get_float("Stock amount: ")
+		self.desired_weight = get_float("Stock desired_weight: ")
 
 
 if __name__ == "__main__":
 
 	# Get number of stocks
-	number_of_stocks = 0
-	while True:
-		try:
-			number_of_stocks = int(input("number_of_stocks: "))
-			break
-		except ValueError:
-			continue # asks again
+	number_of_stocks = int(get_float("number_of_stocks: "))
 
 	# Get data for each stock
 	stocks = []
@@ -51,18 +41,12 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	# Get amount to invest
-	amount_to_invest = 0
-	while True:
-		try:
-			amount_to_invest = float(input("amount_to_invest: "))
-			break
-		except ValueError:
-			continue # asks again
+	amount_to_invest = get_float("amount_to_invest: ")
 
 	# Calculate
 	new_total_amount = total_amount + amount_to_invest
 	for stock in stocks:
 		needed_value = (stock.desired_weight / 100.0) * new_total_amount
 		difference = needed_value - stock.amount
-		print(f"{stock.name}: {stock.amount}->{round(needed_value, 2)}({round(difference, 2)})")
+		print(f"{stock.name}: {stock.amount} -> {round(needed_value, 2)} ({round(difference, 2)})")
 

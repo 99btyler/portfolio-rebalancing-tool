@@ -11,17 +11,13 @@ def get_float(question):
 			continue # asks again
 	return answer
 
-
 class Stock():
-
 	def __init__(self):
 		self.name = input("Stock name: ")
 		self.amount = get_float("Stock amount: ")
 		self.desired_weight = get_float("Stock desired_weight: ")
 
-
-if __name__ == "__main__":
-
+def main():
 	# Get number of stocks
 	number_of_stocks = int(get_float("number_of_stocks: "))
 
@@ -49,4 +45,7 @@ if __name__ == "__main__":
 		needed_value = (stock.desired_weight / 100.0) * new_total_amount
 		difference = needed_value - stock.amount
 		print(f"{stock.name}: {stock.amount} -> {round(needed_value, 2)} ({round(difference, 2)})")
+
+if __name__ == "__main__":
+	main()
 
